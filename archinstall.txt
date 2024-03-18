@@ -1,0 +1,24 @@
+================
+| Arch Install |
+================
+
+This has been a STRUGGLE, but I finally have wifi working so here is a little recap of how I did it so that I never forget.
+
+1. rmmod all the modules i.e. wl ssb b43 bcma.
+
+2. modporbe wl.
+
+3. systemctl restart iwd to make it recognize the changes that I just made.
+
+4. iwctl to start the interface.
+
+5. station list to see what interfaces are up.
+
+6. station wlan0 scan to scan wireless networks around me.
+
+7. station wlan0 get-networks to list all the wireless networks around me.
+
+8. station wlan0 connect rice to connect to the 'rice' wifi.
+
+9. exit iwctl and ping a website to see if it worked.
+
