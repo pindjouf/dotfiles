@@ -28,6 +28,8 @@ from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.widget import base # creating a widget instance for wifi
+import subprocess, re # dealing with os & regex for parsing info from os
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -78,6 +80,18 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "p", lazy.spawn("brave"), desc="Spawn your browser"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-"), desc="Lower Volume by 5%"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+"), desc="Raise Volume by 5%"),
+    Key([], "XF86AudioMute", lazy.spawn("amixer sset Master 1+ toggle"), desc="Mute/Unmute Volume"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
+    Key([mod], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +1%")),
+    Key([mod], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 1%-")),
+    # and the play/pause keys to playerctl like this:
+    # Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Play/Pause player"),
+    # Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc="Skip to next"),
+    # Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc="Skip to previous"), 
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -150,6 +164,48 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+class Volume(widget.Volume):
+    def update(self):
+        vol = self.get_volume()
+        if vol != self.volume:
+            self.volume = vol
+            if vol < 0:
+                no = '0'
+            else:
+                no = int(vol)
+            char = '🔊'
+            self.text = '{}{}{}'.format(char, no, '%')
+
+# Battery module
+class Battery(widget.Battery):
+    def _get_text(self):
+        info = self._get_info()
+        if info is False:
+            return '---'
+        if info['full']:
+            no = int(info['now'] / info['full'] * 100)
+        else:
+            no = 0
+        return '{}{}{}'.format(no, '%')
+
+# New widget instance: read wifi info from os, parse, and then report
+class wifi(base.InLoopPollText):
+    def __init__(self):
+        base.InLoopPollText.__init__(self, update_interval=20)
+
+    def poll(self):
+        state = open('/sys/class/net/wlan0/operstate')
+        if state.readline().strip() == 'down':
+            return " DOWN!"
+        else:
+            essid = re.compile(r'(ESSID):"(.*)"')
+            lqual = re.compile(r'(Link Quality)=(\d+)/(\d+)')
+            out = str(subprocess.check_output(["iwconfig", "wlan0"]).decode('utf-8').strip())
+            ssid = essid.search(out).group(2)
+            quality = (int(lqual.search(out).group(2))+110)/int(lqual.search(out).group(3))*10
+            return " {}% @{}".format(str(int(quality)), ssid)
+
+
 screens = [
     Screen(
         wallpaper = '~/.config/wallpaper/kolibri-os.gif',
@@ -165,6 +221,8 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                Battery(),
+                widget.Volume(),
                 # widget.TextBox("default config", name="default"),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
