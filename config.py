@@ -31,6 +31,11 @@ from libqtile.utils import guess_terminal
 from libqtile.widget import base # creating a widget instance for wifi
 import subprocess, re # dealing with os & regex for parsing info from os
 
+if qtile.core.name == "x11":
+    term = "urxvt"
+elif qtile.core.name == "wayland":
+    term = "foot"
+
 mod = "mod4"
 terminal = guess_terminal()
 
@@ -80,7 +85,7 @@ keys = [
     Key([mod], "i", lazy.spawn("vscodium"), desc="Spawn vscodium"),
     Key([mod], "u", lazy.spawn("rofi -show drun"), desc="Spawn your app browser"),
     Key([mod], "d", lazy.spawn("discord"), desc="Spawn discord"),
-    Key([mod], "s", lazy.spawn("slock"), desc="Lock your screen"),
+    Key([mod], "s", lazy.spawn("swaylock"), desc="Lock your screen"),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-"), desc="Lower Volume by 5%"),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+"), desc="Raise Volume by 5%"),
     Key([], "XF86AudioMute", lazy.spawn("amixer sset Master 1+ toggle"), desc="Mute/Unmute Volume"),
@@ -88,6 +93,8 @@ keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
     Key([mod], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +1%")),
     Key([mod], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 1%-")),
+    Key([], "XF86KbdBrightnessUp", lazy.spawn("brightnessctl --device='smc::kbd_backlight' set +10")),
+    Key([], "XF86KbdBrightnessDown", lazy.spawn("brightnessctl --device='smc::kbd_backlight' set 10-")),
     # and the play/pause keys to playerctl like this:
     # Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Play/Pause player"),
     # Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc="Skip to next"),
@@ -110,7 +117,7 @@ for vt in range(1, 8):
 
 groups = [Group(i) for i in "123456789"]
 
-for i in groups:
+for i in groups: 
     keys.extend(
         [
             # mod1 + group number = switch to group
@@ -135,20 +142,20 @@ for i in groups:
     )
 
 layout_theme = {
-    "border_width": 3,
-    "margin": 8,
+    "border_width": 2,
+    "margin": 14,
     "border_focus": "FFFFFF",
     "border_normal": "1e1e1e"
 }
 
 layouts = [
-    layout.Columns(**layout_theme),
+    # layout.Columns(**layout_theme),
     # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(**layout_theme),
     # layout.Bsp(**layout_theme),
     # layout.Matrix(),
-    # layout.MonadTall(**layout_theme),
+    layout.MonadTall(**layout_theme),
     # layout.MonadWide(**layout_theme),
     # layout.RatioTile(**layout_theme),
     # layout.Tile(**layout_theme),
@@ -160,51 +167,9 @@ layouts = [
 widget_defaults = dict(
     font="FiraCode Nerd Font Bold",
     fontsize=14,
-    padding=3,
+    padding=5,
 )
 extension_defaults = widget_defaults.copy()
-
-class Volume(widget.Volume):
-    def update(self):
-        vol = self.get_volume()
-        if vol != self.volume:
-            self.volume = vol
-            if vol < 0:
-                no = '0'
-            else:
-                no = int(vol)
-            char = '🔊'
-            self.text = '{}{}{}'.format(char, no, '%')
-
-# Battery module
-class Battery(widget.Battery):
-    def _get_text(self):
-        info = self._get_info()
-        if info is False:
-            return '---'
-        if info['full']:
-            no = int(info['now'] / info['full'] * 100)
-        else:
-            no = 0
-        return '{}{}{}'.format(no, '%')
-
-# New widget instance: read wifi info from os, parse, and then report
-class wifi(base.InLoopPollText):
-    def __init__(self):
-        base.InLoopPollText.__init__(self, update_interval=20)
-
-    def poll(self):
-        state = open('/sys/class/net/wlan0/operstate')
-        if state.readline().strip() == 'down':
-            return " DOWN!"
-        else:
-            essid = re.compile(r'(ESSID):"(.*)"')
-            lqual = re.compile(r'(Link Quality)=(\d+)/(\d+)')
-            out = str(subprocess.check_output(["iwconfig", "wlan0"]).decode('utf-8').strip())
-            ssid = essid.search(out).group(2)
-            quality = (int(lqual.search(out).group(2))+110)/int(lqual.search(out).group(3))*10
-            return " {}% @{}".format(str(int(quality)), ssid)
-
 
 screens = [
     Screen(
@@ -212,33 +177,43 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(highlight_method='block', background='#1B2430', active='#FFFFFF', visible_groups=['1', '2', '3']),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.Spacer(),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                Battery(),
-                widget.Volume(),
+                # widget.Net(format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'),
+                # widget.Sep(),
+                widget.OpenWeather(location='Brussels', format='{icon} {main_temp} °{units_temperature}'),
+                widget.Sep(),
+                widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
+                widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}'),
+                widget.Sep(),
+                widget.Battery(discharge_char='', format='{percent:2.0%}'),
+                widget.BatteryIcon(),
+                widget.Sep(),
+                widget.Volume(emoji=True),
                 # widget.TextBox("default config", name="default"),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
-                widget.Systray(),
-                widget.Clock(format="%d-%m-%Y %a %I:%M %p"),
-                # widget.QuickExit(),
+                widget.Sep(),
+                widget.Clock(format="%A, %d %b %R"),
+                widget.Sep(),
+                widget.QuickExit(default_text='⏻'),
             ],
-            24,
+            28,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
         # By default we handle these events delayed to already improve performance, however your system might still be struggling
         # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
+        x11_drag_polling_rate = None,
     ),
 ]
 
@@ -275,8 +250,17 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = True
 
+from libqtile.backend.wayland import InputConfig
 # When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
+wl_input_rules = {
+        "type:touchpad": InputConfig(
+        tap=True,
+        scroll_method='two_finger',
+        natural_scroll=False,
+        pointer_accel=0.2
+        )
+
+}
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

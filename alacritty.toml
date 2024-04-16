@@ -1,43 +1,16 @@
-[colors]
-draw_bold_text_with_bright_colors = true
+[window]
+opacity = 0.9
 
-[colors.bright]
-black = "#5b6268"
-blue = "#3071db"
-cyan = "#46d9ff"
-green = "#4db5bd"
-magenta = "#a9a1e1"
-red = "#da8548"
-white = "#dfdfdf"
-yellow = "#ecbe7b"
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
 
-[colors.cursor]
-cursor = "#528bff"
-text = "CellBackground"
-
-[colors.normal]
-black = "#1c1f24"
-blue = "#51afef"
-cyan = "#5699af"
-green = "#98be65"
-magenta = "#c678dd"
-red = "#ff6c6b"
-white = "#abb2bf"
-yellow = "#da8548"
-
-[colors.primary]
-background = "#282c34"
-foreground = "#bbc2cf"
-
-[colors.selection]
-background = "#3e4451"
-text = "CellForeground"
-
-[env]
-TERM = "xterm-256color"
+[window.padding]
+x = 6
+y = 6
 
 [font]
-size = 10.0
+size = 14.0
 
 [font.bold]
 family = "FiraCode Nerd Font"
@@ -54,10 +27,6 @@ style = "Italic"
 [font.normal]
 family = "FiraCode Nerd Font"
 style = "Regular"
-
-[font.offset]
-x = 0
-y = 1
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -143,22 +112,5 @@ key = "End"
 mode = "~Alt"
 mods = "Shift"
 
-[scrolling]
-history = 5000
-
-[window]
-dynamic_padding = false
-opacity = 1.0
-title = "Alacritty"
-
-[window.class]
-general = "Alacritty"
-instance = "Alacritty"
-
-[window.padding]
-x = 6
-y = 6
-
-#[shell]
-#program = "/usr/bin/fish"
-
+[shell]
+program = "/usr/bin/bash"
