@@ -43,17 +43,17 @@ keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key([mod], "left", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "right", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "down", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "up", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "left", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "right", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "down", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "up", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key([mod, "control"], "left", lazy.layout.grow_left(), desc="Grow window to the left"),
@@ -114,37 +114,79 @@ for vt in range(1, 8):
         )
     )
 
+groups = []
 
-groups = [Group(i) for i in "123456789"]
+# CREATE A LIST CONTAINING GROUP NAMES
+group_names = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+]
 
-for i in groups: 
+# CREATE A LIST CONTAINING GROUP LABELS
+group_labels = [
+    "●",
+    "●",
+    "●",
+    "●",
+    "●",
+    "●",
+    "●",
+]
+
+# CREATE A LIST DEFINING LAYOUTS FOR EACH GROUP
+group_layouts = [
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "monadtall",
+]
+
+# CREATE A DGROUP OBJECT FOR EACH GROUP
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            layout=group_layouts[i].lower(),
+            label=group_labels[i],
+        )
+    )
+
+# ADDITIONAL KEYBINDINGS FOR NAVIGATION WITHIN GROUPS
+for i in groups:
     keys.extend(
         [
-            # mod1 + group number = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + group number = switch to & move focused window to group
+            # CHANGE WORKSPACES - MOVE TO GROUP
+            Key([mod], i.name, lazy.group[i.name].toscreen()),
+            # MOVE TO NEXT GROUP
+            Key([mod], "Tab", lazy.screen.next_group()),
+            Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
+            # MOVE TO PREVIOUS GROUP
+            Key([mod, "shift"], "Tab", lazy.screen.prev_group()),
+            Key(["mod1"], "Tab", lazy.screen.next_group()),
+            # MOVE WINDOW TO SELECTED WORKSPACE 1-i AND STAY ON WORKSPACE
+            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+            # MOVE WINDOW TO SELECTED WORKSPACE 1-i AND FOLLOW
             Key(
                 [mod, "shift"],
                 i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
+                lazy.window.togroup(i.name),
+                lazy.group[i.name].toscreen(),
             ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + group number = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
         ]
     )
 
 layout_theme = {
-    "border_width": 2,
-    "margin": 14,
-    "border_focus": "FFFFFF",
+    "border_width": 3,
+    "margin": 15,
+    "border_focus": "d79921",
     "border_normal": "1e1e1e"
 }
 
@@ -166,19 +208,23 @@ layouts = [
 
 widget_defaults = dict(
     font="FiraCode Nerd Font Bold",
-    fontsize=14,
-    padding=5,
+    fontsize=18,
+    padding=4,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper = '~/.config/wallpaper/kolibri-os.gif',
+        wallpaper = '~/.config/wallpaper/paper.png',
         top=bar.Bar(
             [
-                # widget.CurrentLayout(),
-                widget.GroupBox(highlight_method='block', background='#1B2430', active='#FFFFFF', visible_groups=['1', '2', '3']),
-                widget.Prompt(),
+                widget.Image(filename='/home/pindjouf/.config/icons/archlinux-icon.svg', margin=-1),
+                widget.Spacer(length=10),
+                widget.Clock(format="%A, %d %b %R", foreground='#ebdbb2', fontshadow='#1d2021'),
+                widget.Spacer(length=10),
+                widget.Prompt(foreground='#ebdbb2'),
+                widget.Spacer(),
+                widget.GroupBox(highlight_method='text', active='#ebdbb', this_current_screen_border='#d79921', fontsize=27, padding=5),
                 widget.Spacer(),
                 widget.Chord(
                     chords_colors={
@@ -188,25 +234,25 @@ screens = [
                 ),
                 # widget.Net(format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'),
                 # widget.Sep(),
-                widget.OpenWeather(location='Brussels', format='{icon} {main_temp} °{units_temperature}'),
+                widget.OpenWeather(location='Brussels', format='{icon} {temp} °{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
-                widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}'),
+                widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
-                widget.Battery(discharge_char='', format='{percent:2.0%}'),
+                widget.Battery(discharge_char='', format='{percent:2.0%}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.BatteryIcon(),
                 widget.Sep(),
                 widget.Volume(emoji=True),
                 # widget.TextBox("default config", name="default"),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                widget.Sep(),
-                widget.Clock(format="%A, %d %b %R"),
+                widget.StatusNotifier(),
                 widget.Sep(),
                 widget.QuickExit(default_text='⏻'),
             ],
-            28,
+            24,
+            background="#00000000",
+            margin=8
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
@@ -226,7 +272,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
+follow_mouse_focus = True 
 bring_front_click = False
 floats_kept_above = True
 cursor_warp = False
@@ -257,7 +303,9 @@ wl_input_rules = {
         tap=True,
         scroll_method='two_finger',
         natural_scroll=False,
-        pointer_accel=0.2
+        accel_profile='flat',
+        pointer_accel=1,
+        dwt=True
         )
 
 }
