@@ -91,7 +91,21 @@ keys = [
     Key([mod], "i", lazy.spawn("vscodium"), desc="Spawn vscodium"),
     Key([mod], "u", lazy.spawn("rofi -show drun"), desc="Spawn your app browser"),
     Key([mod], "d", lazy.spawn("discord"), desc="Spawn discord"),
-    Key([mod], "s", lazy.spawn("swaylock"), desc="Lock your screen"),
+    Key([mod], "s", lazy.spawn("swaylock \
+	--screenshots \
+	--clock \
+	--indicator \
+	--indicator-radius 100 \
+	--indicator-thickness 7 \
+	--effect-blur 7x5 \
+	--effect-vignette 0.5:0.5 \
+	--ring-color d79921 \
+	--key-hl-color 458588 \
+	--line-color 00000000 \
+	--inside-color 00000088 \
+	--separator-color 00000000 \
+	--grace 2 \
+	--fade-in 0.2"), desc="Lock your screen"),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-"), desc="Lower Volume by 5%"),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+"), desc="Raise Volume by 5%"),
     Key([], "XF86AudioMute", lazy.spawn("amixer sset Master 1+ toggle"), desc="Mute/Unmute Volume"),
@@ -239,14 +253,12 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 # widget.Mpris2(popup_layout=COMPACT_LAYOUT),
-                widget.StatusNotifier(icon_size=22),
+                widget.StatusNotifier(icon_size=24),
                 widget.Sep(),               # widget.Sep(),
                 widget.OpenWeather(location='Brussels', format='{icon} {temp} °{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
                 widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}', foreground='#ebdbb2', fontshadow='#1d2021'),
-                widget.Sep(),
-                widget.Battery(discharge_char='', format='{percent:2.0%}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.QuickExit(default_text='⏻', foreground='#ebdbb2'),
             ],
