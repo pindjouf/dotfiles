@@ -28,7 +28,13 @@ from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.widget import base # creating a widget instance for wifi
+from qtile_extras import widget as extraWidgets
+from qtile_extras.widget.decorations import RectDecoration
+from qtile_extras.popup.toolkit import (
+    PopupRelativeLayout,
+    PopupImage,
+    PopupText
+)
 import subprocess, re # dealing with os & regex for parsing info from os
 
 if qtile.core.name == "x11":
@@ -224,7 +230,7 @@ screens = [
                 widget.Spacer(length=10),
                 widget.Prompt(foreground='#ebdbb2'),
                 widget.Spacer(),
-                widget.GroupBox(highlight_method='text', active='#ebdbb', this_current_screen_border='#d79921', fontsize=27, padding=5),
+                widget.GroupBox(highlight_method='text', active='#ebdbb2', this_current_screen_border='#d79921', fontsize=27, padding=5),
                 widget.Spacer(),
                 widget.Chord(
                     chords_colors={
@@ -232,23 +238,17 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                # widget.Net(format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'),
-                # widget.Sep(),
+                # widget.Mpris2(popup_layout=COMPACT_LAYOUT),
+                widget.StatusNotifier(icon_size=22),
+                widget.Sep(),               # widget.Sep(),
                 widget.OpenWeather(location='Brussels', format='{icon} {temp} °{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
                 widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.Battery(discharge_char='', format='{percent:2.0%}', foreground='#ebdbb2', fontshadow='#1d2021'),
-                widget.BatteryIcon(),
                 widget.Sep(),
-                widget.Volume(emoji=True),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                widget.StatusNotifier(),
-                widget.Sep(),
-                widget.QuickExit(default_text='⏻'),
+                widget.QuickExit(default_text='⏻', foreground='#ebdbb2'),
             ],
             24,
             background="#00000000",
