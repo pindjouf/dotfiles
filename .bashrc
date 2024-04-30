@@ -40,7 +40,7 @@ eval "$(register-python-argcomplete pipx)"
 # export RANGER_LOAD_DEFAULT_RC=FALSE
 export VISUAL=nvim
 export EDITOR=nvim
-# export BROWSER=firefox
+export BROWSER=firefox
 
 source "$HOME/.config/palettes/gruvbox_256palette.sh"
 
@@ -102,7 +102,7 @@ export LESS_TERMCAP_us=$'\e[0;35m'
 #                           ALIASES
 #-----------------------------------------------------------------------
 
-alias dots='cd ~/Repositories/dotfiles/'
+alias dots='cd ~/Documents/repos/dotfiles/'
 alias bashrc='nvim ~/.bashrc'
 alias reload='source ~/.bashrc'
 alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
