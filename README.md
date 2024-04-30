@@ -8,4 +8,4 @@ Some more stuff I want to add that doesn't work out of the box even though I fol
 - Bluetooth ᛒ
 - BatteryIcon 𓈆↯
 
-![neofetch](assets/20240419_02h11m58s_grim.png)
+![neofetch](assets/20240430_14h43m36s_grim.png)
