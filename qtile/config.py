@@ -30,12 +30,15 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from qtile_extras import widget as extraWidgets
 from qtile_extras.widget.decorations import RectDecoration
+from qtile_extras.popup.templates.mpris2 import COMPACT_LAYOUT, DEFAULT_LAYOUT
 from qtile_extras.popup.toolkit import (
     PopupRelativeLayout,
     PopupImage,
     PopupText
 )
 import subprocess, re # dealing with os & regex for parsing info from os
+import os
+import socket
 
 if qtile.core.name == "x11":
     term = "urxvt"
@@ -91,6 +94,7 @@ keys = [
     Key([mod], "i", lazy.spawn("vscodium"), desc="Spawn vscodium"),
     Key([mod], "u", lazy.spawn("rofi -show drun"), desc="Spawn your app browser"),
     Key([mod], "d", lazy.spawn("discord"), desc="Spawn discord"),
+    Key([mod], "g", lazy.spawn("grim"), desc="Spawn discord"),
     Key([mod], "s", lazy.spawn("swaylock \
 	--screenshots \
 	--clock \
@@ -204,7 +208,7 @@ for i in groups:
     )
 
 layout_theme = {
-    "border_width": 3,
+    "border_width": 4,
     "margin": 15,
     "border_focus": "d79921",
     "border_normal": "1e1e1e"
@@ -235,7 +239,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper = '~/.config/wallpaper/paper.png',
+        wallpaper = '~/.config/wallpaper/street.png',
         top=bar.Bar(
             [
                 widget.Image(filename='/home/pindjouf/.config/icons/archlinux-icon.svg', margin=-1),
@@ -252,13 +256,15 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                # widget.Mpris2(popup_layout=COMPACT_LAYOUT),
                 widget.StatusNotifier(icon_size=24),
                 widget.Sep(),               # widget.Sep(),
-                widget.OpenWeather(location='Brussels', format='{icon} {temp} °{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
+                widget.OpenWeather(location='Brussels', format='{icon} {temp}°{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
                 widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
                 widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}', foreground='#ebdbb2', fontshadow='#1d2021'),
+                widget.Sep(),
+                widget.BatteryIcon(battery=0),
+                widget.Volume(emoji=True),
                 widget.Sep(),
                 widget.QuickExit(default_text='⏻', foreground='#ebdbb2'),
             ],
