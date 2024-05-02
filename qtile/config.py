@@ -28,14 +28,14 @@ from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from qtile_extras import widget as extraWidgets
-from qtile_extras.widget.decorations import RectDecoration
-from qtile_extras.popup.templates.mpris2 import COMPACT_LAYOUT, DEFAULT_LAYOUT
-from qtile_extras.popup.toolkit import (
-    PopupRelativeLayout,
-    PopupImage,
-    PopupText
-)
+#from qtile_extras import widget as extraWidgets
+#from qtile_extras.widget.decorations import RectDecoration
+#from qtile_extras.popup.templates.mpris2 import COMPACT_LAYOUT, DEFAULT_LAYOUT
+#from qtile_extras.popup.toolkit import (
+#    PopupRelativeLayout,
+#    PopupImage,
+#    PopupText
+#)
 import subprocess, re # dealing with os & regex for parsing info from os
 import os
 import socket
@@ -89,7 +89,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "p", lazy.spawn("brave"), desc="Spawn your browser"),
+    Key([mod], "p", lazy.spawn("firefox"), desc="Spawn your browser"),
     Key([mod], "o", lazy.spawn("obsidian"), desc="Spawn obsidian"),
     Key([mod], "i", lazy.spawn("vscodium"), desc="Spawn vscodium"),
     Key([mod], "u", lazy.spawn("rofi -show drun"), desc="Spawn your app browser"),
@@ -231,7 +231,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font Bold",
+    font="Gohufont Bold",
     fontsize=18,
     padding=4,
 )
@@ -242,29 +242,33 @@ screens = [
         wallpaper = '~/.config/wallpaper/street.png',
         top=bar.Bar(
             [
-                widget.Image(filename='/home/pindjouf/.config/icons/archlinux-icon.svg', margin=-1),
+                # widget.Image(filename='/home/pindjouf/.config/icons/archlinux-icon.svg', margin=-1),
                 widget.Spacer(length=10),
-                widget.Clock(format="%A, %d %b %R", foreground='#ebdbb2', fontshadow='#1d2021'),
+                widget.GroupBox(highlight_method='text', active='#ebdbb2', this_current_screen_border='#d79921', fontsize=27, padding=2),
                 widget.Spacer(length=10),
                 widget.Prompt(foreground='#ebdbb2'),
                 widget.Spacer(),
-                widget.GroupBox(highlight_method='text', active='#ebdbb2', this_current_screen_border='#d79921', fontsize=27, padding=5),
+                widget.Clock(format="%A, %d %b %R", foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Spacer(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.StatusNotifier(icon_size=24),
-                widget.Sep(),               # widget.Sep(),
-                widget.OpenWeather(location='Brussels', format='{icon} {temp}°{units_temperature}', foreground='#ebdbb2', fontshadow='#1d2021'),
+                # widget.Chord(
+                #    chords_colors={
+                #        "launch": ("#ff0000", "#ffffff"),
+                #    },
+                #    name_transform=lambda name: name.upper(),
+                # ),
+                widget.Pomodoro(color_active='#b8bb26', color_break='#fabd2f' , color_inactive='#fb4934'),
                 widget.Sep(),
-                widget.CryptoTicker(crypto="BTC", symbol='🪙', currency="EUR", format='{symbol}'),
+                widget.StatusNotifier(icon_size=24),
+                widget.Sep(),
+                widget.Wttr(location={'Brussels': 'Home'}, format=1, foreground='#ebdbb2'),
+                widget.Sep(),
+                widget.CryptoTicker(crypto="BTC", symbol='', currency="EUR", format='{symbol}', foreground='#FF9900'),
                 widget.CryptoTicker(crypto="BTC", symbol='€', currency="EUR", format='{amount:,.2f}{symbol}', foreground='#ebdbb2', fontshadow='#1d2021'),
                 widget.Sep(),
-                widget.BatteryIcon(battery=0),
-                widget.Volume(emoji=True),
+                widget.BatteryIcon(battery=0, theme_path='/usr/share/icons/Paper/'),
+                widget.Volume(theme_path='/usr/share/icons/Paper/', padding=3),
+                # widget.TextBox(fmt=' ', fontsize=14),
+                # widget.TextBox(fmt='', fontsize=18),
                 widget.Sep(),
                 widget.QuickExit(default_text='⏻', foreground='#ebdbb2'),
             ],
