@@ -103,6 +103,7 @@ export LESS_TERMCAP_us=$'\e[0;35m'
 #-----------------------------------------------------------------------
 
 alias dots='cd ~/Documents/repos/dotfiles/'
+alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/'
 alias bashrc='nvim ~/.bashrc'
 alias reload='source ~/.bashrc'
 alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
@@ -110,7 +111,9 @@ alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color
 alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias grep='grep --color=tty -d skip'
 alias vim='nvim'
-# alias cp="cp -i"                          # confirm before overwriting something
+alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
+alias create='touch Documents/notes/$(date +%F).txt'
+alias cat='bat'
 # alias rm='rm -i'

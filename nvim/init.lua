@@ -230,8 +230,13 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require("lazy").setup({
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  require("lazy").setup({
+    -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+    -- init.lua:
+{ 'nvim-telescope/telescope.nvim', tag = '0.1.6',
+-- or                              , branch = '0.1.x',
+  dependencies = { 'nvim-lua/plenary.nvim' }
+},
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 	"junegunn/goyo.vim",
 	"xiyaowong/transparent.nvim",
