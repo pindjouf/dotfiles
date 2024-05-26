@@ -42,8 +42,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 export BROWSER=firefox
 
-source "$HOME/.config/palettes/gruvbox_256palette.sh"
-
 #-----------------------------------------------------------------------
 #
 #                           PROMPT
@@ -98,7 +96,6 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[0;35m'
 
 #-----------------------------------------------------------------------
-#                                           
 #                           ALIASES
 #-----------------------------------------------------------------------
 
