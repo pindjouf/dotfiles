@@ -25,7 +25,7 @@ export BROWSER=firefox
 #-----------------------------------------------------------------------
 
 alias dots='cd ~/Documents/repos/dotfiles/'
-alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/'
+alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Programmingg/projects/flask/ ; yazi'
 alias repos='cd ~/Documents/repos/'
 alias bashrc='nvim ~/.bashrc'
 alias reload='source ~/.bashrc'
@@ -37,6 +37,7 @@ alias vim='nvim'
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias create='touch Documents/notes/$(date +%F).txt'
+alias create='echo $(date +%r) > ~/Documents/notes/$(date +%F).txt ; vim ~/Documents/notes/$(date +%F).txt'
+alias ya='yazi'                          # human-readable sizes
 # alias cat='bat'
 # alias rm='rm -i'
