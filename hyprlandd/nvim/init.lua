@@ -112,7 +112,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed"
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -241,7 +241,9 @@ require("lazy").setup({
 	},
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 	"junegunn/goyo.vim",
+	"kdheepak/lazygit.nvim",
 	"xiyaowong/transparent.nvim",
+	"preservim/nerdtree",
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
 	-- keys can be used to configure plugin behavior/loading/etc.
@@ -395,8 +397,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
+			-- vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.api.nvim_set_keymap("n", "<Space><Space>", ":Neotree<CR>", { noremap = true, silent = true })
+			-- vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.api.nvim_set_keymap("n", "<C-Space><C-j>", ":Goyo<CR>", { noremap = true, silent = true })
+			-- Map Ctrl+Space+Space to run :LazyGit in normal mode
+			vim.api.nvim_set_keymap("n", "<C-Space><C-Space>", ":LazyGit<CR>", { noremap = true, silent = true })
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
 				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -879,11 +885,11 @@ require("lazy").setup({
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	--
 	-- require 'kickstart.plugins.debug',
-	-- require 'kickstart.plugins.indent_line',
+	require("kickstart.plugins.indent_line"),
 	-- require 'kickstart.plugins.lint',
-	-- require 'kickstart.plugins.autopairs',
-	-- require 'kickstart.plugins.neo-tree',
-	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+	-- require("kickstart.plugins.autopairs"),
+	require("kickstart.plugins.neo-tree"),
+	-- require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
