@@ -1,0 +1,130 @@
+#  ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
+#  ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
+#  ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║     
+#  ╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║██╔══██╗██║     
+#  ███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝██║  ██║╚██████╗
+#  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝
+#	z0mbi3			https://github.com/gh0stzk/dotfiles
+#
+
+# Show help
+F1
+	OpenApps --KeyHelp
+
+# Reload Keybindings
+super + Escape
+	pkill -USR1 -x sxhkd; dunstify -u low -i ~/.config/bspwm/assets/reload.svg 'sxhkd' 'The configuration file has been reloaded successfully!'
+
+# Terminal
+super + Return
+    kitty
+
+# Close window
+super + w
+    xdotool getactivewindow windowclose
+
+# Exit window manager (note: this might need to be adapted for your specific setup)
+super + m
+    pkill -KILL -u $USER
+
+# Toggle floating
+super + t
+    bspc node -t ~floating
+
+# File manager
+super + e
+    yazi
+
+# Theme Selector
+alt + @space
+	RiceSelector
+
+# Application menu
+super + @space
+	OpenApps --menu
+
+# Web browser
+super + p
+    firefox
+
+# Code editor
+super + i
+    vscodium
+
+# Messenger
+super + d
+    webcord
+
+# Music player
+super + o
+    spotify
+
+# Screen lock
+super + ctrl + l
+    physlock
+
+# Screenshot
+super + g
+    grim -l 0 -g "$(slurp)" | wl-copy
+
+# Volume control
+XF86AudioLowerVolume
+    amixer sset Master 5%-
+
+XF86AudioRaiseVolume
+    amixer sset Master 5%+
+
+XF86AudioMute
+    amixer sset Master 1+ toggle
+
+# Brightness control
+super + XF86MonBrightnessUp
+    brightnessctl set +1%
+
+super + XF86MonBrightnessDown
+    brightnessctl set 1%-
+
+XF86MonBrightnessUp
+    brightnessctl set +10%
+
+XF86MonBrightnessDown
+    brightnessctl set 10%-
+
+# Focus windows
+super + {h,l,k,j}
+    bspc node -f {west,east,north,south}
+
+# Move windows
+super + shift + {h,l,k,j}
+    bspc node -s {west,east,north,south}
+
+# Switch to workspace
+super + {1-9,0}
+    bspc desktop -f '^{1-9,10}'
+
+# Move window to workspace
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}' --follow
+
+# Toggle special workspace (scratchpad)
+super + s
+    bspc node -t ~hidden
+
+# Move window to special workspace (scratchpad)
+super + shift + s
+    bspc node -t hidden
+
+# Cycle through workspaces
+super + {button4,button5}
+    bspc desktop -f {prev,next}
+
+# jgmenu
+~button3
+  xqp 0 $(xdo id -N Bspwm -n root) && jgmenu --csv-file=~/.config/bspwm/scripts/menu.txt --config-file=~/.config/bspwm/jgmenurc
+
+# Move/resize windows
+super + button1
+    bspc node -v
+
+super + button3
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
