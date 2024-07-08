@@ -14,6 +14,8 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
+export PATH="$PATH:/home/pindjouf/scripts"
+
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
 #  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
 #  ┴─┘└─┘┴ ┴─┴┘  └─┘┘└┘└─┘┴┘└┘└─┘
@@ -142,9 +144,9 @@ alias ya='yazi'                          # human-readable sizes
 alias con='ssh osmc@192.168.129.5'
 alias wgup='wg-quick up pindjouf'
 alias wgdown='wg-quick down pindjouf'
-alias cat='vat'
 alias con2='ssh esau@192.168.129.174'
 alias list='cd ~/Documents/repos/to-do-list/ ; nvim to_do_list.md'
+alias con3='ssh pindjouf@192.168.129.180'
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
