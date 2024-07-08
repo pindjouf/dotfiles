@@ -66,3 +66,6 @@ map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_wor
 
 -- Lazygit
 map("n", "<C-Space><C-Space>", "<cmd>LazyGit<cr>", { desc = "Open Lazygit", noremap = true })
+
+-- Goyo
+map("n", "<leader>j", "<cmd>Goyo<cr>", { desc = "Open Goyo", noremap = true })
