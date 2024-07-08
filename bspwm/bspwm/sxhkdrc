@@ -63,10 +63,6 @@ super + o
 super + ctrl + l
     physlock
 
-# Screenshot
-super + g
-    grim -l 0 -g "$(slurp)" | wl-copy
-
 # Volume control
 XF86AudioLowerVolume
     amixer sset Master 5%-
@@ -128,3 +124,15 @@ super + button1
 
 super + button3
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Random wallpaper
+super + alt + w
+	WallSelect
+
+# Screenshot Now
+Print
+	ScreenShoTer --now
+
+# Screenshot Select
+super + g
+	ScreenShoTer --sel
