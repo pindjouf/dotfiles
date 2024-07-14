@@ -47,17 +47,13 @@ super + @space
 super + p
     firefox
 
-# Code editor
-super + i
-    vscodium
-
 # Messenger
 super + d
     webcord
 
 # Music player
 super + o
-    spotify
+    spotube
 
 # Screen lock
 super + ctrl + l
@@ -65,13 +61,14 @@ super + ctrl + l
 
 # Volume control
 XF86AudioLowerVolume
-    amixer sset Master 5%-
+    pamixer --decrease 5
+
 
 XF86AudioRaiseVolume
-    amixer sset Master 5%+
+    pamixer --increase 5
 
 XF86AudioMute
-    amixer sset Master 1+ toggle
+    pamixer --mute
 
 # Brightness control
 super + XF86MonBrightnessUp
@@ -85,6 +82,14 @@ XF86MonBrightnessUp
 
 XF86MonBrightnessDown
     brightnessctl set 10%-
+
+# Keyboard Brightness control
+XF86KbdBrightnessUp
+    brightnessctl -d smc::kbd_backlight set +10%
+
+XF86KbdBrightnessDown
+    brightnessctl -d smc::kbd_backlight set 10%-
+
 
 # Focus windows
 super + {h,l,k,j}

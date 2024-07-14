@@ -69,3 +69,6 @@ map("n", "<C-Space><C-Space>", "<cmd>LazyGit<cr>", { desc = "Open Lazygit", nore
 
 -- Goyo
 map("n", "<leader>j", "<cmd>Goyo<cr>", { desc = "Open Goyo", noremap = true })
+
+-- Markdown Preview
+map("n", "<leader>m", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Start Markdown Preview", noremap = true })

@@ -126,6 +126,11 @@ alias vm-off="sudo systemctl stop libvirtd.service"
 
 alias musica="ncmpcpp"
 
+# SSH to servers
+alias con='ssh osmc@192.168.129.5'
+alias con2='ssh esau@192.168.129.174'
+alias con3='ssh pindjouf@192.168.129.180'
+
 alias dots='cd ~/Documents/repos/dotfiles/'
 alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Programmingg/projects/flask/ ; yazi'
 alias repos='cd ~/Documents/repos/'
@@ -139,16 +144,35 @@ alias vim='nvim'
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias create='echo $(date +%r) > ~/Documents/notes/$(date +%F).txt ; vim ~/Documents/notes/$(date +%F).txt'
 alias ya='yazi'                          # human-readable sizes
-alias con='ssh osmc@192.168.129.5'
 alias wgup='wg-quick up pindjouf'
 alias wgdown='wg-quick down pindjouf'
-alias con2='ssh esau@192.168.129.174'
 alias list='cd ~/Documents/repos/to-do-list/ ; nvim to_do_list.md'
-alias con3='ssh pindjouf@192.168.129.180'
+alias from='cd ~/Documents/repos/fromthetransistor ; yazi'
+
+function create() {
+  local current_date=$(date +%F)
+  local current_time=$(date +%r)
+  local today=$(date '+%A %B %d')
+  local notes_file=~/Documents/notes/"$current_date.md"
+
+  if [ -f "$notes_file" ]; then
+    echo "## $current_time" >> "$notes_file"
+    echo "" >> "$notes_file"
+    echo "" >> "$notes_file"
+    vim "$notes_file"
+  else
+    echo "# $today" > "$notes_file"
+    echo "" >> "$notes_file"
+    echo "## $current_time" >> "$notes_file"
+    echo "" >> "$notes_file"
+    echo "" >> "$notes_file"
+    vim "$notes_file"
+  fi
+}
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
-# $HOME/.local/bin/colorscript -r
+#  Make ssh work
+eval `ssh-agent -s` > /dev/null ; ssh-add ~/.ssh/mac > /dev/null 2>&1

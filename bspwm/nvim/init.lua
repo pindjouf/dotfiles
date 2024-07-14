@@ -19,5 +19,7 @@ require("lazy").setup({
   },
   defaults = {
     lazy = false, -- plugins are not lazy loaded by default
-  },
+    },
 })
+
+vim.cmd.colorscheme "catppuccin-frappe"

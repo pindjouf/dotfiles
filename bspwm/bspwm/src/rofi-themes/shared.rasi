@@ -1,0 +1,13 @@
+// Rofi colors for Pamela
+
+* {
+    font: "Terminess Nerd Font Mono Bold 10";
+    background: #1D1F28;
+    background-alt: #1D1F28E0;
+    foreground: #c0caf5;
+    selected: #6C77BB;
+    active: #18E3C8;
+    urgent: #FF4971;
+    
+    img-background: url("~/.config/bspwm/rices/pamela/rofi.webp", width);
+}
