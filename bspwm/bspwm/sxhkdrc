@@ -61,14 +61,26 @@ super + ctrl + l
 
 # Volume control
 XF86AudioLowerVolume
-    pamixer --decrease 5
-
+    pactl set-sink-volume 0 -5%
 
 XF86AudioRaiseVolume
-    pamixer --increase 5
+    pactl set-sink-volume 0 +5%
 
 XF86AudioMute
-    pamixer --mute
+    pactl set-sink-mute 0 toggle
+
+# Media player controls
+XF86AudioPlay
+    playerctl play-pause
+
+XF86AudioPause
+    playerctl pause
+
+XF86AudioNext
+    playerctl next
+
+XF86AudioPrev
+    playerctl previous
 
 # Brightness control
 super + XF86MonBrightnessUp
