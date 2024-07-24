@@ -49,7 +49,7 @@ super + p
 
 # Messenger
 super + d
-    webcord
+    vesktop
 
 # Music player
 super + o
@@ -124,10 +124,10 @@ super + {button4,button5}
   xqp 0 $(xdo id -N Bspwm -n root) && jgmenu --csv-file=~/.config/bspwm/scripts/menu.txt --config-file=~/.config/bspwm/jgmenurc
 
 # Move/resize windows
-super + button1
+super + mouse1
     bspc node -v
 
-super + button3
+super + mouse3
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # Random wallpaper
