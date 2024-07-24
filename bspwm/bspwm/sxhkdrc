@@ -29,7 +29,7 @@ super + m
 
 # Toggle floating
 super + t
-    bspc node -t ~floating
+    bspc node -t \~floating
 
 # File manager
 super + e
@@ -89,7 +89,6 @@ XF86KbdBrightnessUp
 
 XF86KbdBrightnessDown
     brightnessctl -d smc::kbd_backlight set 10%-
-
 
 # Focus windows
 super + {h,l,k,j}
