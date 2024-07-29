@@ -70,63 +70,67 @@ set_kitty_config() {
 
 
 # The basic colors
-foreground              #FDFDFD
-background              #1D1F28
-selection_foreground    #1D1F28
-selection_background    #C574DD
+background #222436
+foreground #c8d3f5
+selection_background #2d3f76
+selection_foreground #c8d3f5
 
 # Cursor colors
-cursor                  #FDFDFD
-cursor_text_color       #1D1F28
+cursor #c8d3f5
+cursor_text_color #222436
 
 # URL underline color when hovering with mouse
-url_color               #8897F4
+url_color #4fd6be
 
 # Kitty window border colors
-active_border_color     #C574DD
-inactive_border_color   #56687E
+active_border_color #82aaff
+inactive_border_color #2f334d
 bell_border_color       #F2A272
 
 # Tab bar colors
-active_tab_foreground   #1D1F28
-active_tab_background   #C574DD
-inactive_tab_foreground #FDFDFD
-inactive_tab_background #3D4C5F
-tab_bar_background      #1D1F28
+active_tab_background #82aaff
+active_tab_foreground #1e2030
+inactive_tab_background #2f334d
+inactive_tab_foreground #545c7e
+tab_bar_background #1b1d2b
 
 # The 16 terminal colors
 
 # black
-color0 #3D4C5F
-color8 #56687E
+color0 #1b1d2b
+color8 #444a73
 
 # red
-color1 #F37F97
-color9 #FF4971
+color1 #ff757f
+color9 #ff757f
 
 # green
-color2  #5ADECD
-color10 #18E3C8
+color2 #c3e88d
+color10 #c3e88d
 
 # yellow
-color3  #F2A272
-color11 #FF8037
+color3 #ffc777
+color11 #ffc777
 
 # blue
-color4  #8897F4
-color12 #556FFF
+color4 #82aaff
+color12 #82aaff
 
 # magenta
-color5  #C574DD
-color13 #B043D1
+color5 #c099ff
+color13  #c099ff
 
 # cyan
-color6  #79E6F3
-color14 #3FDCEE
+color6 #86e1fc
+color14 #86e1fc
 
 # white
-color7  #FDFDFD
-color15 #BEBEC1
+color7 #828bb8
+color15 #c8d3f5
+
+# extended colors
+color16 #ff966c
+color17 #c53b53
 EOF
 
 killall -USR1 kitty
