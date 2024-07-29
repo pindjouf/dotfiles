@@ -1,10 +1,11 @@
 local opt = vim.opt -- for conciseness
 
--- Numeracion de las lineas
+-- Number the lines
 opt.relativenumber = true
 opt.number = true
 opt.showtabline = 2
--- tabs & indentation
+
+-- Tabs & indentation
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
