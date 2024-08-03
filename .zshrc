@@ -126,13 +126,13 @@ alias vm-off="sudo systemctl stop libvirtd.service"
 
 alias musica="ncmpcpp"
 
-# SSH to servers
+# SSH to home servers
 alias con='ssh osmc@192.168.129.5'
 alias con2='ssh esau@192.168.129.174'
-alias con3='ssh pindjouf@192.168.129.180'
+alias con3='ssh root@192.168.129.187'
 
 alias dots='cd ~/Documents/repos/dotfiles/'
-alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Programmingg/projects/flask/ ; yazi'
+alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Redd ; yazi'
 alias repos='cd ~/Documents/repos/'
 alias zrc='nvim ~/.zshrc'
 alias reload='source ~/.zshrc'
@@ -144,11 +144,13 @@ alias vim='nvim'
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias ya='yazi'                          # human-readable sizes
+alias ya='yy'                          # human-readable sizes
 alias wgup='wg-quick up pindjouf'
 alias wgdown='wg-quick down pindjouf'
 alias list='cd ~/Documents/repos/to-do-list/ ; nvim to_do_list.md'
-alias from='cd ~/Documents/repos/fromthetransistor ; yazi'
+alias from='cd ~/Documents/repos/fromthetransistor ; ya'
+
+# Functions
 
 function create() {
   local current_date=$(date +%F)
@@ -169,6 +171,15 @@ function create() {
     echo "" >> "$notes_file"
     vim "$notes_file"
   fi
+}
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐

@@ -126,4 +126,4 @@ rules = [
 	# Fallback
 	{ name = "*/", fg = "#82aaff" }
 ]
-    
+
