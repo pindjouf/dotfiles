@@ -9,7 +9,7 @@ return {
                 " Auto-enable Goyo for markdown files
                 autocmd FileType markdown Goyo
                 " Customize Goyo appearance
-                let g:goyo_width = 80
+                let g:goyo_width = 90
                 let g:goyo_height = 90
             ]])
         end,
