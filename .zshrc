@@ -153,24 +153,47 @@ alias from='cd ~/Documents/repos/fromthetransistor ; ya'
 # Functions
 
 function create() {
-  local current_date=$(date +%F)
-  local current_time=$(date +%r)
-  local today=$(date '+%A %B %d')
-  local notes_file=~/Documents/notes/"$current_date.md"
+    local current_date=$(date +%F)
+    local current_year=$(date +%Y)
+    local current_month=$(date +%B | tr '[:upper:]' '[:lower:]')
+    local current_month_n=$(date +%m)
+    local current_time=$(date +%r)
+    local today=$(date '+%A %B %d')
+    local journal_file=~/Documents/notes/journal/"$current_year"/"$current_month_n"."$current_month"/"$current_date.md"  
 
-  if [ -f "$notes_file" ]; then
-    echo "## $current_time" >> "$notes_file"
-    echo "" >> "$notes_file"
-    echo "" >> "$notes_file"
-    vim "$notes_file"
-  else
-    echo "# $today" > "$notes_file"
-    echo "" >> "$notes_file"
-    echo "## $current_time" >> "$notes_file"
-    echo "" >> "$notes_file"
-    echo "" >> "$notes_file"
-    vim "$notes_file"
-  fi
+    cd ~/Documents/notes/journal
+
+    if [ -f "$journal_file" ]; then
+        echo "## $current_time" >> "$journal_file"
+        echo "" >> "$journal_file"
+        echo "" >> "$journal_file"
+        nvim "$journal_file"
+    else
+        echo "# $today" > "$journal_file"
+        echo "" >> "$journal_file"
+        echo "## $current_time" >> "$journal_file"
+        echo "" >> "$journal_file"
+        echo "" >> "$journal_file"
+        nvim "$journal_file"
+    fi
+}
+
+function main() {
+    local main_file=~/Documents/notes/main.md
+
+    cd ~/Documents/notes
+
+    if [ -f "$main_file" ]; then
+        ${EDITOR} "$main_file"
+        sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "$main_file"
+    else
+        echo "# Stuff to keep in mind" >> "$main_file"
+        echo "" >> "$main_file"
+        echo "## todo" >> "$main_file"
+        echo "" >> "$main_file"
+        echo "" >> "$main_file"
+        ${EDITOR} "$main_file"
+    fi
 }
 
 function yy() {
