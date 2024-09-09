@@ -20,7 +20,7 @@ set guioptions ""
 # zathurarc-dark
 
 set font "Roboto"
-set default-bg "#2D2424" #00
+set default-bg "#181818" #00
 set default-fg "#F7F7F6" #01
 
 set statusbar-fg "#B0B0B0" #04
@@ -48,11 +48,10 @@ set notification-bg "#90A959" #0B
 set notification-fg "#151515" #00
 
 set recolor "true"
-set recolor-lightcolor "#2D2424" #00
+set recolor-lightcolor "#181818" #00
 set recolor-darkcolor "#E0E0E0" #06
 set recolor-reverse-video "true"
 set recolor-keephue "true"
-
 
 set render-loading "false"
 set scroll-step 50

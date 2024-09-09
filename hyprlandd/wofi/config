@@ -1,15 +1,45 @@
-width=600
-height=350
-location=center
+# Wofi Configuration
+# Appearance
 show=drun
-prompt=Search...
-filter_rate=100
-allow_markup=true
-no_actions=true
-halign=fill
+width=50%
+height=50%
+location=center
 orientation=vertical
-content_halign=fill
-insensitive=true
+halign=fill
+line_wrap=word
+dynamic_lines=false
+
+# Behavior
+prompt=Type to search...
+allow_markup=true
 allow_images=true
-image_size=40
+image_size=32
 gtk_dark=true
+filter_rate=100
+sort_order=alphabetical
+matching=contains
+insensitive=true
+no_actions=false
+
+# Performance
+cache_file=/tmp/wofi-cache
+parse_search=false
+exec_search=true
+hide_scroll=true
+
+# Keybindings
+key_expand=Tab
+key_exit=Escape
+
+# Customize
+search=
+normal_window=true
+layer=overlay
+term=foot
+columns=1
+
+# Colors (Gruvbox-inspired)
+colors=colors.css
+
+# For developers
+print_command=true

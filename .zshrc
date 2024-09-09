@@ -5,16 +5,18 @@
 #  ┬  ┬┌─┐┬─┐┌─┐
 #  └┐┌┘├─┤├┬┘└─┐
 #   └┘ ┴ ┴┴└─└─┘
-export VISUAL="${EDITOR}"
 export EDITOR='nvim'
+export VISUAL="${EDITOR}"
 export BROWSER='firefox'
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
+export HYPRSHOT_DIR="$HOME/Pictures/screenshots"
+export XDG_PICTURES_DIR="$HOME/Pictures"
 
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$PATH:/home/pindjouf/scripts"
+export PATH="$PATH:/home/pindjouf/scripts:/usr/local/bin"
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
 #  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
@@ -50,6 +52,7 @@ expand-or-complete-with-dots() {
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
+bindkey -v
 
 #  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
 #  ├─┤│└─┐ │ │ │├┬┘└┬┘
@@ -75,20 +78,20 @@ setopt COMPLETE_IN_WORD    # Complete from both ends of a word.
 #   ┴ ┴ ┴└─┘  ┴  ┴└─└─┘┴ ┴┴   ┴
 function dir_icon {
   if [[ "$PWD" == "$HOME" ]]; then
-    echo "%B%F{cyan}%f%b"
+    echo "%B%F{#83a598}%f%b"
   else
-    echo "%B%F{cyan}%f%b"
+    echo "%B%F{#83a598}%f%b"
   fi
 }
 
-PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+PS1='%B%F{#83a598}%f%b  %B%F{#d3869b}%n%f%b $(dir_icon)  %B%F{#fb4934}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#b8bb26}.%F{#fb4934})%f%b '
 
 #  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
 #  ├─┘│  │ ││ ┬││││└─┐
 #  ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /home/pindjouf/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/pindjouf/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/pindjouf/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -114,12 +117,8 @@ fi
 #  ┌─┐┬  ┬┌─┐┌─┐
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
-alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
 
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mantenimiento="yay -Sc && sudo pacman -Scc"
-alias purga="sudo pacman -Rns $(pacman -Qtdq) ; sudo fstrim -av"
-alias update="paru -Syu --nocombinedupgrade"
 
 alias vm-on="sudo systemctl start libvirtd.service"
 alias vm-off="sudo systemctl stop libvirtd.service"
@@ -149,6 +148,9 @@ alias wgup='wg-quick up pindjouf'
 alias wgdown='wg-quick down pindjouf'
 alias list='cd ~/Documents/repos/to-do-list/ ; nvim to_do_list.md'
 alias from='cd ~/Documents/repos/fromthetransistor ; ya'
+alias conf='nvim /etc/nixos/configuration.nix'
+alias rebuild='sudo nixos-rebuild switch'
+alias bat='cat /sys/class/power_supply/BAT0/capacity'
 
 # Functions
 
@@ -209,4 +211,4 @@ function yy() {
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
 #  Make ssh work
-eval `ssh-agent -s` > /dev/null ; ssh-add ~/.ssh/mac > /dev/null 2>&1
+# eval `ssh-agent -s` > /dev/null ; ssh-add ~/.ssh/mac > /dev/null 2>&1

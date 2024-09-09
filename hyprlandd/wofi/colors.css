@@ -1,0 +1,41 @@
+@define-color background #282828;
+@define-color foreground #ebdbb2;
+@define-color selection #504945;
+@define-color selection-text #fbf1c7;
+@define-color border #665c54;
+
+window {
+    background-color: @background;
+    color: @foreground;
+    border: 2px solid @border;
+}
+
+#input {
+    background-color: @selection;
+    color: @selection-text;
+    border: 1px solid @border;
+}
+
+#inner-box {
+    background-color: @background;
+}
+
+#outer-box {
+    background-color: @background;
+}
+
+#scroll {
+    background-color: @background;
+}
+
+#text {
+    color: @foreground;
+}
+
+#entry:selected {
+    background-color: @selection;
+}
+
+#text:selected {
+    color: @selection-text;
+}
