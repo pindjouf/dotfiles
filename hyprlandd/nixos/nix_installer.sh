@@ -16,7 +16,7 @@ else
 fi
 
 function confirm() {
-    read -r -p "${1:-Are you sure?} [y/N] " response
+    read -r -p "${1:-Are you sure?} [Y/n] " response
     case "$response" in
         [yY][eE][sS]|[yY]) 
             true
