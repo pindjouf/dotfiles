@@ -6,7 +6,7 @@ const battery = await Service.import("battery")
 const systemtray = await Service.import("systemtray")
 
 const date = Variable("", {
-    poll: [1000, 'date "+%H:%M:%S %b %e."'],
+    poll: [1000, 'date "+%H:%M:%S %b %e"'],
 })
 
 // widgets can be only assigned as a child in one container
@@ -128,7 +128,7 @@ function BatteryLabel() {
 
     return Widget.Box({
         class_name: "battery",
-        visible: battery.bind("available"),
+        //visible: battery.bind("available"),
         children: [
             Widget.Icon({ icon }),
             Widget.LevelBar({
@@ -161,7 +161,7 @@ function Left() {
     return Widget.Box({
         spacing: 8,
         children: [
-            Workspaces(),
+            //Workspaces(),
             //ClientTitle(),
         ],
     })
@@ -184,7 +184,7 @@ function Right() {
         spacing: 8,
         children: [
             Volume(),
-            BatteryLabel(),
+            //BatteryLabel(),
             SysTray(),
         ],
     })
