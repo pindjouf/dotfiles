@@ -37,3 +37,6 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.iskeyword:append("-")
+
+-- Clickable Links
+opt.mouse = "a"
