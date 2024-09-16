@@ -89,8 +89,9 @@ function main() {
     printf "\n"
     printf "Getting your configuration.nix file from GitHub...\n"
     printf "\n"
-    nix-env -iA nixpkgs.git
+    nix-shell -p git
     git clone https://github.com/pindjouf/dotfiles.git
+    exit
     mv dotfiles/hyprlandd/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
     rm -r dotfiles
     nixos-install

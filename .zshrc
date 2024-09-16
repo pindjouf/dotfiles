@@ -129,10 +129,11 @@ alias musica="ncmpcpp"
 alias con='ssh osmc@192.168.129.5'
 alias con2='ssh esau@192.168.129.174'
 alias con3='ssh root@192.168.129.187'
+alias con4='ssh root@192.168.129.196'
 
-alias dots='cd ~/Documents/repos/dotfiles/'
-alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Redd ; yazi'
-alias repos='cd ~/Documents/repos/'
+alias dots='cd ~/Documents/repos/dotfiles/; ya'
+alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Redd; ya'
+alias repos='cd ~/Documents/repos/; ya'
 alias zrc='nvim ~/.zshrc'
 alias reload='source ~/.zshrc'
 alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
@@ -146,13 +147,38 @@ alias free='free -m'                      # show sizes in MB
 alias ya='yy'                          # human-readable sizes
 alias wgup='wg-quick up pindjouf'
 alias wgdown='wg-quick down pindjouf'
-alias list='cd ~/Documents/repos/to-do-list/ ; nvim to_do_list.md'
 alias from='cd ~/Documents/repos/fromthetransistor ; ya'
 alias conf='nvim /etc/nixos/configuration.nix'
 alias rebuild='sudo nixos-rebuild switch'
-alias bat='cat /sys/class/power_supply/BAT0/capacity'
+alias notes='cd ~/Documents/notes; ya'
+alias docs='rustup doc'
 
 # Functions
+function bat() {
+    local percentage=$(cat /sys/class/power_supply/BAT0/capacity)
+    local state=$(cat /sys/class/power_supply/BAT0/status)
+
+    # Gruvbox colors
+    local no_color='\033[0m'
+    local red='\033[0;31m'
+    local green='\033[0;32m'
+    local yellow='\033[0;33m'
+    local blue='\033[0;34m'
+
+    printf "${blue}[Battery]${no_color}\n"
+    if [[ "$state" == "Discharging" ]]; then
+        printf "Status: ${red}%s${no_color}\n" "$state"
+    else
+        printf "Status: ${green}%s${no_color}\n" "$state"
+    fi
+    if [[ "$percentage" -gt 80 ]]; then
+        printf "Your battery is at: ${green}%s%%${no_color}\n" "$percentage"
+    elif [[ "$percentage" -le 80 && "$percentage" -ge 20 ]]; then
+        printf "Your battery is at: ${yellow}%s%%${no_color}\n" "$percentage"
+    else
+        printf "Your battery is at: ${red}%s%%${no_color}\n" "$percentage"
+    fi
+}
 
 function create() {
     local current_date=$(date +%F)
@@ -212,3 +238,4 @@ function yy() {
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
 #  Make ssh work
 # eval `ssh-agent -s` > /dev/null ; ssh-add ~/.ssh/mac > /dev/null 2>&1
+bat
