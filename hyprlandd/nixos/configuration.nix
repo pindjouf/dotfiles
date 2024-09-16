@@ -118,26 +118,32 @@ in
     shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
+      mpc-cli
       tree
       tree-sitter
       tree-sitter-grammars.tree-sitter-html
       git
+      ffmpeg
       hyprland
       spotify
       kitty
       blueman
+      btop
+      bc
       feh
       yarn
       zathura
       cantarell-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      pavucontrol
       coreutils
       jellyfin-media-player
       wireguard-tools
       lazygit
       nodejs_22
       wl-clipboard
+      dolphin
       grim
       slurp
       unzip
@@ -154,6 +160,7 @@ in
       dunst
       wev
       gcc
+      mpv
       go
       fd
       ripgrep
