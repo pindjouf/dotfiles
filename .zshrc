@@ -157,6 +157,15 @@ alias docs='rustup doc'
 function bat() {
     local percentage=$(cat /sys/class/power_supply/BAT0/capacity)
     local state=$(cat /sys/class/power_supply/BAT0/status)
+    
+    # Battery temperature
+    local temp_file="/sys/class/power_supply/BAT0/temp"
+    if [[ -f "$temp_file" ]]; then
+        local temp_raw=$(cat "$temp_file")
+        local temperature=$(echo "scale=1; $temp_raw / 10" | bc)
+    else
+        local temperature="N/A"
+    fi
 
     # Gruvbox colors
     local no_color='\033[0m'
@@ -166,17 +175,34 @@ function bat() {
     local blue='\033[0;34m'
 
     printf "${blue}[Battery]${no_color}\n"
+    
+    # State of the battery (Charging/Discharging)
     if [[ "$state" == "Discharging" ]]; then
         printf "Status: ${red}%s${no_color}\n" "$state"
     else
         printf "Status: ${green}%s${no_color}\n" "$state"
     fi
-    if [[ "$percentage" -gt 80 ]]; then
-        printf "Your battery is at: ${green}%s%%${no_color}\n" "$percentage"
-    elif [[ "$percentage" -le 80 && "$percentage" -ge 20 ]]; then
-        printf "Your battery is at: ${yellow}%s%%${no_color}\n" "$percentage"
+    
+    # Battery percentage
+    if [[ "$percentage" -ge 80 ]]; then
+        printf "Percentage: ${green}%s%%${no_color}\n" "$percentage"
+    elif [[ "$percentage" -lt 80 && "$percentage" -ge 20 ]]; then
+        printf "Percentage: ${yellow}%s%%${no_color}\n" "$percentage"
     else
-        printf "Your battery is at: ${red}%s%%${no_color}\n" "$percentage"
+        printf "Percentage: ${red}%s%%${no_color}\n" "$percentage"
+    fi
+
+    # Battery temperature
+    if [[ "$temperature" != "N/A" ]]; then
+        if [[ "$temperature" -ge 45 ]]; then
+            printf "Temperature: ${red}%s°C${no_color}\n" "$temperature"
+        elif [[ "$temperature" -ge 30 ]]; then
+            printf "Temperature: ${yellow}%s°C${no_color}\n" "$temperature"
+        else
+            printf "Temperature: ${green}%s°C${no_color}\n" "$temperature"
+        fi
+    else
+        printf "Temperature: ${red}Unavailable${no_color}\n"
     fi
 }
 
