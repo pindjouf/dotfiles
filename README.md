@@ -4,13 +4,13 @@ Welcome to my dotfiles! These configurations power my setups for various window 
 
 ## 🖥️ Window Manager Setups
 
-### 1. **bspwm** -> ~~stolen~~/forked from [gh0stzk](https://github.com/gh0stzk/dotfiles)
-
-![bspwm screenshot](/assets/bspwm.gif)
-
-### 2. **Hyprland**
+### 1. **Hyprland**
 
 ![hyprland screenshot](/assets/hyprland.png)
+
+### 2. **bspwm** -> ~~stolen~~/forked from [gh0stzk](https://github.com/gh0stzk/dotfiles)
+
+![bspwm screenshot](/assets/bspwm.gif)
 
 ### 3. **qtile**
 
