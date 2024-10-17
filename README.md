@@ -18,7 +18,7 @@ Welcome to my dotfiles! These configurations power my setups for various window 
 
 ### 4. **Windows (Catppuccin Themed)**
 
-![windows screenshot ](/assets/windows.png)
+![windows screenshot ](/assets/windows.PNG)
 
 ## 🛠️ What's Inside
 
