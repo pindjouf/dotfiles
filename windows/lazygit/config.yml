@@ -1,0 +1,27 @@
+gui:
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "#f2a900"  # Catppuccin Mocha: Yellow
+      - "bold"
+    inactiveBorderColor:
+      - "#6c7086"  # Catppuccin Mocha: Surface 2
+    searchingActiveBorderColor:
+      - "#f2a900"  # Catppuccin Mocha: Yellow
+      - "bold"
+    optionsTextColor:
+      - "#f5f5f7"  # Catppuccin Mocha: Text
+    selectedLineBgColor:
+      - "#1e1e2e"  # Catppuccin Mocha: Base
+    cherryPickedCommitFgColor:
+      - "#f5f5f7"  # Catppuccin Mocha: Text
+    cherryPickedCommitBgColor:
+      - "#a6e3a1"  # Catppuccin Mocha: Green
+    markedBaseCommitFgColor:
+      - "#f5f5f7"  # Catppuccin Mocha: Text
+    markedBaseCommitBgColor:
+      - "#f9e2ae"  # Catppuccin Mocha: Peach
+    unstagedChangesColor:
+      - "#ff6f67"  # Catppuccin Mocha: Red
+    defaultFgColor:
+      - "#f5f5f7"  # Catppuccin Mocha: Text
