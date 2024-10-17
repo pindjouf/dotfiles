@@ -1,6 +1,6 @@
 # 🔧 pindjouf's Dotfiles
 
-Welcome to my dotfiles! These configurations power my setups for various window managers including **bspwm**, **Hyprland**, **qtile**, and now **Windows** (Catppuccin themed). If you're looking to explore or customize your own Linux or Windows environment, feel free to dive in and adapt these to your needs.
+Welcome to my dotfiles! These configurations power my setups for various window managers including **bspwm**, **Hyprland**, **qtile**, and now **Komorebi** (Catppuccin themed). If you're looking to explore or customize your own Linux or Windows environment, feel free to dive in and adapt these to your needs.
 
 ## 🖥️ Window Manager Setups
 
