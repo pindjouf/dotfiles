@@ -1,11 +1,13 @@
-local map = vim.keymap.set
-vim.g.mapleader = " "
+local map = vim.keymap.set vim.g.mapleader = " "
 
 -- Save current file
 map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save file", remap = true })
 
 -- ESC pressing jk
 map("i", "jk", "<ESC>", { desc = "jk to esc", noremap = true })
+
+-- Vertical split current file pressing vs
+map("i", "vs", "<cmd>vertical split<cr>", { desc = "vs to vertical split current file", noremap = true })
 
 -- Quit Neovim
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit Buffer/Neovim", remap = true })
@@ -72,3 +74,6 @@ map("n", "<leader>j", "<cmd>Goyo<cr>", { desc = "Open Goyo", noremap = true })
 
 -- Markdown Preview
 map("n", "<leader>m", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Start Markdown Preview", noremap = true })
+
+-- Markview Toggle
+map("n", "<leader>v", "<cmd>Markview<cr>", { desc = "Toggle Markview", noremap = true })
