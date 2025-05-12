@@ -1,31 +1,38 @@
-@define-color background #282828;
-@define-color foreground #ebdbb2;
-@define-color selection #504945;
-@define-color selection-text #fbf1c7;
-@define-color border #665c54;
+@define-color background rgba(30, 30, 30, 0.95); /* Slightly transparent dark */
+@define-color foreground #ebdbb2; /* Neutral text */
+@define-color selection #83a598; /* Accent Blue */
+@define-color selection-text #282828; /* Contrast text */
+@define-color border rgba(50, 50, 50, 0.9); /* Subtle border color */
+@define-color shadow rgba(0, 0, 0, 0.4); /* Shadow for depth */
 
+/* Base Styling */
 window {
     background-color: @background;
     color: @foreground;
     border: 2px solid @border;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 5px 15px @shadow; /* Floating effect */
+    padding: 10px;
 }
 
 #input {
     background-color: @selection;
     color: @selection-text;
     border: 1px solid @border;
+    border-radius: 10px; /* Rounded input box */
+    padding: 8px;
 }
 
-#inner-box {
+#inner-box, #outer-box {
     background-color: @background;
-}
-
-#outer-box {
-    background-color: @background;
+    border-radius: 15px;
+    padding: 8px;
+    box-shadow: 0px 5px 10px @shadow; /* Add depth */
 }
 
 #scroll {
     background-color: @background;
+    border-radius: 15px; /* Rounded corners for the scroll area */
 }
 
 #text {
@@ -33,9 +40,10 @@ window {
 }
 
 #entry:selected {
-    background-color: @selection;
+    background-color: @selection; /* Highlight selected entry */
+    border-radius: 8px;
 }
 
 #text:selected {
-    color: @selection-text;
+    color: @selection-text; /* High contrast text */
 }

@@ -1,0 +1,68 @@
+# Fonts
+sdl2_ttf
+ttf-roboto
+nerd-fonts
+ttf-fira-code
+ttf-liberation
+ttf-zed-mono-ne
+ttf-font-awesome
+ttf-jetbrains-mono
+
+# Nvidia Drivers
+nvidia-dkms
+nvidia-utils
+opencl-nvidia
+nvidia-settings
+lib32-nvidia-utils
+
+# Wayland Compositing & Compatibility
+wayland
+xorg-xwayland
+wayland-protocols
+
+# Hyprlÿfe
+hyprland
+hyprlang
+hyprlock
+hyprshot
+hyprutils
+hyprpaper
+hyprcursor
+hyprgraphics
+hyprland-qtutils
+hyprland-qt-support
+hyprwayland-scanner
+
+# Desktop Environment Components & Utilities
+wofi
+dunst
+waybar
+wl-clipboard
+
+# Core Applications
+kitty
+neovim
+zathura
+whatscli
+yazi-nightly-bin
+zathura-pdf-poppler
+
+# Command-Line Interface (CLI) Power Tools
+jq
+fd
+fzf
+7zip
+zoxide
+ripgrep
+lazygit
+
+# Multimedia, Graphics Libraries & Utilities
+resvg
+ffmpeg
+poppler
+imagemagick
+
+# System & Networking
+networkmanager
+wireguard-tools
+network-manager-applet

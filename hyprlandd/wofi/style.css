@@ -1,43 +1,54 @@
+/* Font and Base Styling */
 * {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "FiraCode Nerd Font", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
     font-size: 14px;
 }
 
 window {
-    background-color: #282828;
-    color: #ebdbb2;
-    border: 2px solid #504945;
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    background-color: rgba(30, 30, 30, 0.95); /* Semi-transparent dark */
+    color: #ebdbb2; /* Neutral text */
+    border: 2px solid rgba(50, 50, 50, 0.9); /* Subtle border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4); /* Floating effect */
+    padding: 15px; /* Add padding around content */
 }
 
+/* Input Box */
 #input {
-    background-color: #3c3836;
-    color: #ebdbb2;
-    border: 1px solid #504945;
-    padding: 4px;
+    background-color: #3c3836; /* Darker tone for input */
+    color: #ebdbb2; /* Text color */
+    border: 1px solid #504945; /* Subtle border */
+    border-radius: 10px; /* Rounded input corners */
+    padding: 8px; /* Add padding for better spacing */
 }
 
-#inner-box {
-    background-color: #282828;
+/* Inner and Outer Boxes */
+#inner-box, #outer-box {
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 15px;
+    padding: 10px; /* Add spacing within boxes */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4); /* Depth effect */
 }
 
-#outer-box {
-    background-color: #282828;
-    padding: 15px;
-}
-
+/* Scroll Area */
 #scroll {
-    background-color: #282828;
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 15px; /* Rounded scroll area */
 }
 
+/* Text Styling */
 #text {
     color: #ebdbb2;
-    padding: 4px;
+    padding: 6px; /* Add padding for better readability */
 }
 
+/* Selected Entry Styling */
 #entry:selected {
-    background-color: #504945;
+    background-color: #83a598; /* Accent Blue for selection */
+    border-radius: 8px; /* Rounded selection */
 }
 
 #text:selected {
-    color: #fbf1c7;
+    color: #282828; /* High contrast for selected text */
 }

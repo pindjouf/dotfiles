@@ -27,7 +27,8 @@
         "return-type": "json",
         "format": "{}",
         "tooltip": true,
-        "interval": 3600
+        "interval": 3600,
+        "on-click": "${HOME}/.config/waybar/scripts/get_weather.sh Brussels+Belgium"
     },
     "custom/nerd_dictation": {
         "exec": "~/.config/waybar/scripts/nerd_dictation_status.sh",
@@ -42,6 +43,7 @@
         "tooltip": false,
         "on-scroll-down": "amixer set Master 5%-",
         "on-scroll-up": "amixer set Master 5%+",
+        "on-click": "amixer set Master 100%-"
     },
     "custom/magnifier": {
         "on-click": "wofi --show drun",

@@ -16,18 +16,18 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$PATH:/home/pindjouf/scripts:/usr/local/bin"
+export PATH="$PATH:/home/pindjouf/repos/bin:/usr/local/bin:/home/pindjouf/.cargo/bin:/home/pindjouf/.local/share/gem/ruby/3.4.0/bin"
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
 #  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
 #  ┴─┘└─┘┴ ┴─┴┘  └─┘┘└┘└─┘┴┘└┘└─┘
 autoload -Uz compinit
 
-for dump in ~/.config/zsh/zcompdump(N.mh+24); do
-  compinit -d ~/.config/zsh/zcompdump
+for dump in ~/.zsh/zcompdump(N.mh+24); do
+  compinit -d ~/.zsh/zcompdump
 done
 
-compinit -C -d ~/.config/zsh/zcompdump
+compinit -C -d ~/.zsh/zcompdump
 
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
@@ -57,7 +57,7 @@ bindkey -v
 #  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
 #  ├─┤│└─┐ │ │ │├┬┘└┬┘
 #  ┴ ┴┴└─┘ ┴ └─┘┴└─ ┴ 
-HISTFILE=~/.config/zsh/zhistory
+HISTFILE=~/.zsh/zhistory
 HISTSIZE=5000
 SAVEHIST=5000
 
@@ -84,7 +84,7 @@ function dir_icon {
   fi
 }
 
-PS1='%B%F{#83a598}%f%b  %B%F{#d3869b}%n%f%b $(dir_icon)  %B%F{#fb4934}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#b8bb26}.%F{#fb4934})%f%b '
+PS1='%B%F{#83a598}󰣇%f%b  %B%F{#d3869b}%n%f%b $(dir_icon)  %B%F{#fb4934}%~%f%b${vcs_info_msg_0_} %(?.%B%F{#b8bb26}.%F{#fb4934})%f%b '
 
 #  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
 #  ├─┘│  │ ││ ┬││││└─┐
@@ -117,140 +117,53 @@ fi
 #  ┌─┐┬  ┬┌─┐┌─┐
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
+#
+# System & Package Management
+alias shut='shutdown now'
 
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+# Networking
+alias wgup='wg-quick up pindjouf'
+alias wgdown='wg-quick down pindjouf'
 
-alias vm-on="sudo systemctl start libvirtd.service"
-alias vm-off="sudo systemctl stop libvirtd.service"
+# SSH Connections
+alias con='ssh pindjouf@router.local'
+alias con2='ssh pindjouf@web.local'
+alias con3='ssh root@proxmox.local'
+alias con4='ssh pindjouf@soc.local'
 
-alias musica="ncmpcpp"
+# Simulation
+alias arm-as='arm-none-eabi-as'
+alias arm-ld='arm-none-eabi-ld'
+alias arm-objdump='arm-none-eabi-objdump'
+alias arm-gdb='arm-none-eabi-gdb'
+alias arm-exec='qemu-arm'
 
-# SSH to home servers
-alias con='ssh osmc@192.168.129.5'
-alias con2='ssh esau@192.168.129.174'
-alias con3='ssh root@192.168.129.187'
-alias con4='ssh root@192.168.129.196'
+# Hacking
+alias exegol="sudo -E $(which exegol)"
+alias bloodhound="bloodhound-ce-python"
 
-alias dots='cd ~/Documents/repos/dotfiles/; ya'
-alias bx='cd ~/Documents/repos/BXL-Cyber-Camp/Redd; ya'
+# Navigation & Directory Shortcuts
+alias dots='cd ~/.config/; ya'
 alias repos='cd ~/Documents/repos/; ya'
+alias notes='cd ~/Documents/notes; ya'
+alias sand="cd ~/Documents/repos/sandbox; ya"
+
+# Shell & Editor
 alias zrc='nvim ~/.zshrc'
 alias reload='source ~/.zshrc'
+alias vim='nvim'
+
+# File Management & Listing
 alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
 alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias cp="cp -i"
 alias grep='grep --color=tty -d skip'
-alias vim='nvim'
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias ya='yy'                          # human-readable sizes
-alias wgup='wg-quick up pindjouf'
-alias wgdown='wg-quick down pindjouf'
-alias from='cd ~/Documents/repos/fromthetransistor ; ya'
-alias conf='nvim /etc/nixos/configuration.nix'
-alias rebuild='sudo nixos-rebuild switch'
-alias notes='cd ~/Documents/notes; ya'
-alias docs='rustup doc'
+alias df='df -h'
+alias free='free -m'
 
-# Functions
-function bat() {
-    local percentage=$(cat /sys/class/power_supply/BAT0/capacity)
-    local state=$(cat /sys/class/power_supply/BAT0/status)
-    
-    # Battery temperature
-    local temp_file="/sys/class/power_supply/BAT0/temp"
-    if [[ -f "$temp_file" ]]; then
-        local temp_raw=$(cat "$temp_file")
-        local temperature=$(echo "scale=1; $temp_raw / 10" | bc)
-    else
-        local temperature="N/A"
-    fi
-
-    # Gruvbox colors
-    local no_color='\033[0m'
-    local red='\033[0;31m'
-    local green='\033[0;32m'
-    local yellow='\033[0;33m'
-    local blue='\033[0;34m'
-
-    printf "${blue}[Battery]${no_color}\n"
-    
-    # State of the battery (Charging/Discharging)
-    if [[ "$state" == "Discharging" ]]; then
-        printf "Status: ${red}%s${no_color}\n" "$state"
-    else
-        printf "Status: ${green}%s${no_color}\n" "$state"
-    fi
-    
-    # Battery percentage
-    if [[ "$percentage" -ge 80 ]]; then
-        printf "Percentage: ${green}%s%%${no_color}\n" "$percentage"
-    elif [[ "$percentage" -lt 80 && "$percentage" -ge 20 ]]; then
-        printf "Percentage: ${yellow}%s%%${no_color}\n" "$percentage"
-    else
-        printf "Percentage: ${red}%s%%${no_color}\n" "$percentage"
-    fi
-
-    # Battery temperature
-    if [[ "$temperature" != "N/A" ]]; then
-        if [[ "$temperature" -ge 45 ]]; then
-            printf "Temperature: ${red}%s°C${no_color}\n" "$temperature"
-        elif [[ "$temperature" -ge 30 ]]; then
-            printf "Temperature: ${yellow}%s°C${no_color}\n" "$temperature"
-        else
-            printf "Temperature: ${green}%s°C${no_color}\n" "$temperature"
-        fi
-    else
-        printf "Temperature: ${red}Unavailable${no_color}\n"
-    fi
-}
-
-function create() {
-    local current_date=$(date +%F)
-    local current_year=$(date +%Y)
-    local current_month=$(date +%B | tr '[:upper:]' '[:lower:]')
-    local current_month_n=$(date +%m)
-    local current_time=$(date +%r)
-    local today=$(date '+%A %B %d')
-    local journal_file=~/Documents/notes/journal/"$current_year"/"$current_month_n"."$current_month"/"$current_date.md"  
-
-    cd ~/Documents/notes/journal
-
-    if [ -f "$journal_file" ]; then
-        echo "## $current_time" >> "$journal_file"
-        echo "" >> "$journal_file"
-        echo "" >> "$journal_file"
-        nvim "$journal_file"
-    else
-        echo "# $today" > "$journal_file"
-        echo "" >> "$journal_file"
-        echo "## $current_time" >> "$journal_file"
-        echo "" >> "$journal_file"
-        echo "" >> "$journal_file"
-        nvim "$journal_file"
-    fi
-}
-
-function main() {
-    local main_file=~/Documents/notes/main.md
-
-    cd ~/Documents/notes
-
-    if [ -f "$main_file" ]; then
-        ${EDITOR} "$main_file"
-        sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "$main_file"
-    else
-        echo "# Stuff to keep in mind" >> "$main_file"
-        echo "" >> "$main_file"
-        echo "## todo" >> "$main_file"
-        echo "" >> "$main_file"
-        echo "" >> "$main_file"
-        ${EDITOR} "$main_file"
-    fi
-}
-
-function yy() {
+# LEEEEZI YAAAAZI
+function ya() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -262,6 +175,4 @@ function yy() {
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
-#  Make ssh work
-# eval `ssh-agent -s` > /dev/null ; ssh-add ~/.ssh/mac > /dev/null 2>&1
-bat
+eval "$(starship init zsh)"
