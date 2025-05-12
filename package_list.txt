@@ -43,6 +43,7 @@ wl-clipboard
 kitty
 neovim
 zathura
+vesktop
 whatscli
 yazi-nightly-bin
 zathura-pdf-poppler
