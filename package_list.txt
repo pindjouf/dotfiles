@@ -46,6 +46,7 @@ zathura
 vesktop
 firefox
 whatscli
+obsidian
 keepassxc
 pavucontrol
 yazi-nightly-bin
