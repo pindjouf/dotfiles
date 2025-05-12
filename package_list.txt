@@ -54,10 +54,12 @@ zathura-pdf-poppler
 jq
 fd
 fzf
+kew
 7zip
 zoxide
 ripgrep
 lazygit
+yewtube
 passwordsafe
 
 # Multimedia, Graphics Libraries & Utilities
