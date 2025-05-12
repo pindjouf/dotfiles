@@ -44,7 +44,9 @@ kitty
 neovim
 zathura
 vesktop
+firefox
 whatscli
+keepassxc
 yazi-nightly-bin
 zathura-pdf-poppler
 
@@ -56,6 +58,7 @@ fzf
 zoxide
 ripgrep
 lazygit
+passwordsafe
 
 # Multimedia, Graphics Libraries & Utilities
 resvg
@@ -64,6 +67,7 @@ poppler
 imagemagick
 
 # System & Networking
+openvpn
 networkmanager
 wireguard-tools
 network-manager-applet
