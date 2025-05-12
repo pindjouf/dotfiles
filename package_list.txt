@@ -47,6 +47,7 @@ vesktop
 firefox
 whatscli
 keepassxc
+pavucontrol
 yazi-nightly-bin
 zathura-pdf-poppler
 

@@ -3,11 +3,12 @@
 import os
 import shutil
 
-packages = list()
 home_dir = os.path.expanduser("~") + "/"
 config_file_extension = ["conf", "toml", "yaml", "yml"]
 
 def main():
+    packages = list()
+
     # Install paru
     os.system("sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si")
     os.system("cd .. && rm -r paru")
