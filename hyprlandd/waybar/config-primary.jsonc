@@ -1,11 +1,11 @@
 {
     "height": 56,
     "width": 2500,
-    "output": "DP-3",
+    "output": "HDMI-A-1",
     "layer": "top",
     "margin": "10 0 0 0", 
     "position": "top",
-    "modules-left": ["custom/nixos", "hyprland/workspaces", "custom/nerd_dictation"],
+    "modules-left": ["custom/nixos", "hyprland/workspaces", "custom/pomo"],
     "modules-center": ["mpris"],
     "modules-right": ["custom/datetime", "custom/magnifier", "custom/volume", "custom/pacman", "custom/weather","custom/bitcoin", "tray"],
     "custom/bitcoin": {
@@ -21,6 +21,15 @@
     "exec-if": "exit 0",
     "on-click": "kitty --class floating -e sh -c 'sudo pacman -Syu; pkill -SIGRTMIN+8 waybar'",
     "signal": 8
+    },
+    "custom/pomo": {
+    "format": "   {}",
+    "exec": "pomodoro-cli status --format json --time-format digital",
+    "return-type": "json",
+    "on-click": "pomodoro-cli start --add 5m --notify",
+    "on-click-middle": "pomodoro-cli pause",
+    "on-click-right": "pomodoro-cli stop",
+    "interval": 1
     },
     "custom/weather": {
         "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Brussels+Belgium",

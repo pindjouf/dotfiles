@@ -6,7 +6,7 @@
     border-radius: 15px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
     color: #fabd2f;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Fira Code Nerd Font', monospace;
 }
 
 #waybar > .module {
@@ -46,11 +46,11 @@
     border: 1px solid #fe8019;
 }
 
-#clock, #mpris, #workspaces, #nerd_dictation, #custom-datetime, #custom-magnifier, #custom-pacman, #custom-weather, #custom-bitcoin {
+#clock, #mpris, #workspaces, #nerd_dictation, #custom-datetime, #custom-magnifier, #custom-pacman, #custom-weather, #custom-bitcoin, #custom-pomo {
     font-size: 15px;
 }
 
-#custom-nerd_dictation, #custom-volume, #custom-datetime, #custom-magnifier, #tray, #custom-pacman, #custom-weather, #custom-bitcoin {
+#custom-nerd_dictation, #custom-volume, #custom-datetime, #custom-magnifier, #tray, #custom-pacman, #custom-weather, #custom-bitcoin, #custom-pomo {
     border: 1px solid rgba(50, 50, 50, 0.9);
     border-radius: 10px;
     padding: 5px;
