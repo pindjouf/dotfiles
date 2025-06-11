@@ -16,7 +16,7 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$PATH:/home/pindjouf/repos/bin:/usr/local/bin:/home/pindjouf/.cargo/bin:/home/pindjouf/.local/share/gem/ruby/3.4.0/bin"
+export PATH="$PATH:/home/pindjouf/Documents/repos/bin:/usr/local/bin:/home/pindjouf/.cargo/bin:/home/pindjouf/.local/share/gem/ruby/3.4.0/bin"
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
 #  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤ 
@@ -118,7 +118,7 @@ fi
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
 #
-# System & Package Management
+# System
 alias shut='shutdown now'
 
 # Networking
@@ -140,13 +140,15 @@ alias arm-exec='qemu-arm'
 
 # Hacking
 alias exegol="sudo -E $(which exegol)"
-alias bloodhound="bloodhound-ce-python"
+alias docker="sudo -E $(which docker)"
+alias docker-compose="sudo -E $(which docker-compose)"
 
 # Navigation & Directory Shortcuts
 alias dots='cd ~/.config/; ya'
 alias repos='cd ~/Documents/repos/; ya'
 alias notes='cd ~/Documents/notes; ya'
 alias sand="cd ~/Documents/repos/sandbox; ya"
+alias vpn='cd ~/Documents/vpn; ya'
 
 # Shell & Editor
 alias zrc='nvim ~/.zshrc'
@@ -176,3 +178,4 @@ function ya() {
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │ 
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴ 
 eval "$(starship init zsh)"
+xhost +si:localuser:root &>/dev/null
