@@ -136,12 +136,15 @@ alias arm-as='arm-none-eabi-as'
 alias arm-ld='arm-none-eabi-ld'
 alias arm-objdump='arm-none-eabi-objdump'
 alias arm-gdb='arm-none-eabi-gdb'
+alias arm-readelf='arm-none-eabi-readelf'
 alias arm-exec='qemu-arm'
 
-# Hacking
+# ...
 alias exegol="sudo -E $(which exegol)"
 alias docker="sudo -E $(which docker)"
 alias docker-compose="sudo -E $(which docker-compose)"
+alias openvpn="sudo -E $(which openvpn)"
+alias pacman="sudo -E $(which pacman)"
 
 # Navigation & Directory Shortcuts
 alias dots='cd ~/.config/; ya'
