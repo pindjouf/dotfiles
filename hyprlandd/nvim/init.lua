@@ -27,3 +27,11 @@ vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand('~/.local/share/nvim/undo')
 vim.cmd.colorscheme "gruvbox"
 vim.opt.mouse = ""
+vim.opt.whichwrap:append {
+    ['<'] = true,
+    ['>'] = true,
+    ['['] = true,
+    [']'] = true,
+    h = true,
+    l = true,
+}

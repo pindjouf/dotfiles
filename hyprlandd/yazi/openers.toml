@@ -1,0 +1,2 @@
+[open]
+"pdf" = ["zathura", "$1"]
