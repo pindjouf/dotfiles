@@ -11,6 +11,8 @@ export BROWSER='firefox'
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 export HYPRSHOT_DIR="$HOME/Pictures/screenshots"
 export XDG_PICTURES_DIR="$HOME/Pictures"
+export PATH=/opt/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
 
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
@@ -122,14 +124,15 @@ fi
 alias shut='shutdown now'
 
 # Networking
-alias wgup='wg-quick up pindjouf'
-alias wgdown='wg-quick down pindjouf'
+alias wgup='wg-quick up wg0'
+alias wgdown='wg-quick down wg0'
+alias ip='grc ip'
+alias ipa='ip -br -c a'
+alias ipr='ip -br -c route'
 
 # SSH Connections
 alias con='ssh pindjouf@router.local'
-alias con2='ssh pindjouf@web.local'
-alias con3='ssh root@proxmox.local'
-alias con4='ssh pindjouf@soc.local'
+alias con2='ssh esau@neosolaris.be'
 
 # Simulation
 alias arm-as='arm-none-eabi-as'
@@ -141,8 +144,6 @@ alias arm-exec='qemu-arm'
 
 # ...
 alias exegol="sudo -E $(which exegol)"
-alias docker="sudo -E $(which docker)"
-alias docker-compose="sudo -E $(which docker-compose)"
 alias openvpn="sudo -E $(which openvpn)"
 alias pacman="sudo -E $(which pacman)"
 
@@ -153,19 +154,22 @@ alias notes='cd ~/Documents/notes; ya'
 alias sand="cd ~/Documents/repos/sandbox; ya"
 alias vpn='cd ~/Documents/vpn; ya'
 
-# Shell & Editor
-alias zrc='nvim ~/.zshrc'
-alias reload='source ~/.zshrc'
-alias vim='nvim'
-
 # File Management & Listing
-alias l='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
+alias l='ls -lht --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -hFX'
 alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias cp="cp -i"
 alias grep='grep --color=tty -d skip'
 alias df='df -h'
+alias du='du -sh'
 alias free='free -m'
+
+# Misc
+alias zrc='nvim ~/.zshrc'
+alias reload='source ~/.zshrc'
+alias vim='nvim'
+alias hyprland='start-hyprland'
+alias claude='claude --continue'
 
 # LEEEEZI YAAAAZI
 function ya() {
